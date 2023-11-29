@@ -29,10 +29,12 @@ namespace Disc
         private List<Vector3> bezierPathPoints;
         private Quaternion initialLocalRotation;
         [SerializeField]private LayerMask discLayerMask;
-      
-        
+        [SerializeField]private float discEffectDuration=0.2f;
+
+
         private void Start()
         {
+            discImpactEffect.Stop();
             camera=Camera.main;
             Vector3 currentRotation = transform.localEulerAngles;
             Vector3 targetRotation = new Vector3(currentRotation.x, currentRotation.y, currentRotation.z + 360);
@@ -95,11 +97,26 @@ namespace Disc
              transform.SetParent(discParentTransform);
              verticalTween.Play();
          }
+         public void PlayDiscImpactEffect(Vector3 pos,Quaternion rot )
+         {
+             StartCoroutine(PlayEffectCoroutine(pos,rot));
+         }
+
+         private IEnumerator PlayEffectCoroutine(Vector3 pos, Quaternion rot)
+         {
+             discImpactEffect.transform.position = pos;
+             discImpactEffect.Play();
+             yield return new WaitForSeconds(discEffectDuration);
+             discImpactEffect.Stop();
+         }
 
          private void OnTriggerEnter(Collider other)
          {
+             
              if (other.TryGetComponent<Dummy>(out var dummy))
              {
+                 Vector3 hitPos = other.ClosestPoint(transform.position);
+                 PlayDiscImpactEffect(hitPos,default);
                  Vector3 hitDirection = (dummy.transform.position - discParentTransform.position).normalized;
                  Debug.Log(hitDirection);
                  dummy.DeathVfx(hitDirection);
@@ -154,6 +171,7 @@ namespace Disc
             Vector3 finalNormal = Vector3.Cross(finalBinormal, finalTangent).normalized;
             Quaternion finalRotation = Quaternion.FromToRotation(Vector3.forward, finalNormal);
             transform.rotation = finalRotation;
+            PlayDiscImpactEffect(transform.position,finalRotation);
             ReturnToStart();
         }
         

@@ -9,7 +9,7 @@ namespace Objects
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<PlayerMovement>(out var player))
+            if (other.TryGetComponent<PlayerBody>(out var player))
             {
                 player.JumpPad(jumpForce);
             }
