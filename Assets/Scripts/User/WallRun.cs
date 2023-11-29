@@ -8,7 +8,7 @@ namespace User
     {
         [SerializeField] private Transform orientation;
         [SerializeField] private float wallDistance = .5f, minimumJumpHeight = 1.5f;
-        [SerializeField] private Camera camera;
+        [SerializeField] private new Camera camera;
         [SerializeField] private bool wallLeft,wallRight;
         [SerializeField] private float wallRunGravity;
         [SerializeField] private float wallJumpForce;

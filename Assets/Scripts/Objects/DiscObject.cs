@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Objects;
 using UnityEngine;
+using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 namespace Disc
 {
@@ -20,6 +21,7 @@ namespace Disc
         [SerializeField] private Transform discParentTransform; // Reference to the player's transform
         [SerializeField] private float returnSpeed = 5f; // Speed at which the disc returns to the player
         [SerializeField] private float rotationSmoothing = 0.1f; // Smoothing factor for rotation
+        [SerializeField] private VisualEffect discImpactEffect;
 
         private Vector3 controlPoint1;
         private Vector3 controlPoint2;
@@ -101,6 +103,8 @@ namespace Disc
                  Vector3 hitDirection = (dummy.transform.position - discParentTransform.position).normalized;
                  Debug.Log(hitDirection);
                  dummy.DeathVfx(hitDirection);
+                 dummy.Dissolve();
+                 Debug.DrawRay(transform.position, hitDirection * 5f, Color.red, 2f);
              }
          }
 

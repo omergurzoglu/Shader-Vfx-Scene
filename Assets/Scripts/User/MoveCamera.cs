@@ -21,8 +21,6 @@ namespace User
         {
             return Mathf.Sin(timer);
         }
-
-
         private void Update()
         {
             float waveslice = 0;
@@ -30,7 +28,6 @@ namespace User
             float vertical = Input.GetAxis("Vertical");
 
             Vector3 localPos = cameraPosition.localPosition;
-
             if (Mathf.Abs(horizontal) == 0 && Mathf.Abs(vertical) == 0)
             {
                 timer = 0;
@@ -38,13 +35,12 @@ namespace User
             else
             {
                 waveslice = Mathf.Sin(timer);
-                timer = timer + bobbingSpeed * Time.deltaTime;
+                timer += bobbingSpeed * Time.deltaTime;
                 if (timer > Mathf.PI * 2)
                 {
-                    timer = timer - (Mathf.PI * 2);
+                    timer -= (Mathf.PI * 2);
                 }
             }
-
             if (waveslice != 0)
             {
                 float translateChange = waveslice * bobbingAmount;
