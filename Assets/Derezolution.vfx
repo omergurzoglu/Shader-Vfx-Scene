@@ -210,7 +210,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614583}
   - {fileID: 8926484042661614807}
   dataType: 0
-  capacity: 5000
+  capacity: 100000
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 1
@@ -3922,7 +3922,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 12500
+      m_SerializableObject: 5000
     m_Space: 2147483647
   m_Property:
     name: Count
