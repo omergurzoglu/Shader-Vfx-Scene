@@ -42,9 +42,9 @@ namespace Objects
             var bullet = GetPooledBullet();
             if (bullet != null)
             {
-                bullet.transform.position =bulletSpawnPos.position;
-                bullet.gameObject.SetActive(true);
-                bullet.SetTarget(player);
+                bullet.transform.position = bulletSpawnPos.position;
+                Vector3 directionToPlayer = (player.position - bulletSpawnPos.position).normalized;
+                bullet.Activate(directionToPlayer);
             }
         }
         private Bullet GetPooledBullet()

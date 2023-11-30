@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using User;
 
 namespace Objects
@@ -6,20 +7,17 @@ namespace Objects
     public class Bullet : MonoBehaviour
     {
         public float speed = 75f;
-        public Transform target;
         private TrailRenderer trailRenderer;
+        public Vector3 moveDirection;
         
         private void Awake()
         {
             trailRenderer = GetComponent<TrailRenderer>();
         }
+        
         private void Update()
         {
-            if (target != null)
-            {
-                Vector3 direction = (target.position - transform.position).normalized;
-                transform.position += direction * (speed * Time.deltaTime);
-            }
+                transform.position += moveDirection * (speed * Time.deltaTime);
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -27,19 +25,27 @@ namespace Objects
             {
                 Deactivate();
             }
-
             if (other.TryGetComponent<PlayerBody>(out var player))
             {
                 Deactivate();
             }
         }
-        public void SetTarget(Transform newTarget)
+        
+        public void Activate(Vector3 dir)
         {
-            target = newTarget;
+            moveDirection = dir;
+            gameObject.SetActive(true);
+            StartCoroutine(DeactivationCoroutine());
+        }
+        private IEnumerator DeactivationCoroutine()
+        {
+            yield return new WaitForSeconds(3f);
+            Deactivate();
         }
 
-        public void Deactivate()
+        private void Deactivate()
         {
+            StopAllCoroutines(); 
             trailRenderer.Clear();
             gameObject.SetActive(false);
         }
