@@ -67,7 +67,10 @@ namespace Disc
                 {
                     List<Vector3> pathPoints = GenerateBezierPath(transform.position, hit.point, Random.Range(15f,30f), 20);
                     transform.SetParent(null);
-                    StartCoroutine(MoveAlongPath(pathPoints));
+
+                    StartCoroutine(hit.transform.gameObject.TryGetComponent<HexGrid>(out var hexGrid)
+                        ? MoveAlongPath(pathPoints, true,hexGrid)
+                        : MoveAlongPath(pathPoints, false,null));
                 }
             }
             if (Input.GetKeyDown(KeyCode.R))
@@ -118,17 +121,17 @@ namespace Disc
                  Vector3 hitPos = other.ClosestPoint(transform.position);
                  PlayDiscImpactEffect(hitPos,default);
                  Vector3 hitDirection = (dummy.transform.position - discParentTransform.position).normalized;
-                 Debug.Log(hitDirection);
+                 //Debug.Log(hitDirection);
                  dummy.DeathVfx(hitDirection);
                  dummy.Dissolve();
-                 Debug.DrawRay(transform.position, hitDirection * 5f, Color.red, 2f);
+                 //Debug.DrawRay(transform.position, hitDirection * 5f, Color.red, 2f);
              }
          }
 
 
          #region Bezier
         
-         private IEnumerator MoveAlongPath(List<Vector3> pathPoints )
+         private IEnumerator MoveAlongPath(List<Vector3> pathPoints , bool hexHit ,HexGrid hexGrid)
         {
             
             Vector3 startPosition = transform.position;
@@ -172,6 +175,10 @@ namespace Disc
             Quaternion finalRotation = Quaternion.FromToRotation(Vector3.forward, finalNormal);
             transform.rotation = finalRotation;
             PlayDiscImpactEffect(transform.position,finalRotation);
+            if (hexHit)
+            {
+                StartCoroutine(hexGrid.HexScan(transform.position));
+            }
             ReturnToStart();
         }
         

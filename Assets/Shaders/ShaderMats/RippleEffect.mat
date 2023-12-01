@@ -53,7 +53,7 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RippleSize: 15.35
+    - _RippleSize: 18.92
     - _RippleSpeed: 0
     - _RippleTime: 10
     m_Colors:
