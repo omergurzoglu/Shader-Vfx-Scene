@@ -1,27 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using Managers;
 using UnityEngine;
+using User;
+using Random = UnityEngine.Random;
+
 namespace Objects
 {
     public class Turret : MonoBehaviour
     {
         public Transform player;
-        public Bullet bulletPrefab;
-        public int poolSize = 10;
-        private List<Bullet> bulletPool;
         public float fireRate = 0.5f;
         private float nextFireTime = 0f;
+        [SerializeField] private bool isShooting;
         [SerializeField] private Transform bulletSpawnPos;
-
-        private void Start()
-        {
-            bulletPool = new List<Bullet>();
-            for (int i = 0; i < poolSize; i++)
-            {
-                var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-                bullet.gameObject.SetActive(false);
-                bulletPool.Add(bullet);
-            }
-        }
         private void Update()
         {
             Vector3 directionToPlayer = player.position - transform.position;
@@ -30,8 +21,7 @@ namespace Objects
             angle += 90;
             Quaternion currentRotation = transform.rotation;
             transform.rotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y, angle);
-            
-            if (Time.time >= nextFireTime)
+            if (Time.time >= nextFireTime && isShooting)
             {
                 Fire();
                 nextFireTime = Time.time + 1f / fireRate;
@@ -39,7 +29,7 @@ namespace Objects
         }
         private void Fire()
         {
-            var bullet = GetPooledBullet();
+            Bullet bullet = BulletPool.GetBullet();
             if (bullet != null)
             {
                 bullet.transform.position = bulletSpawnPos.position;
@@ -57,16 +47,21 @@ namespace Objects
                 bullet.Activate(directionWithRecoil);
             }
         }
-        private Bullet GetPooledBullet()
+
+        private void OnTriggerEnter(Collider other)
         {
-            foreach (var bullet in bulletPool)
+            if (other.TryGetComponent<PlayerBody>(out var playerBody))
             {
-                if (!bullet.gameObject.activeInHierarchy)
-                {
-                    return bullet;
-                }
+                isShooting = true;
             }
-            return null; 
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent<PlayerBody>(out var playerBody))
+            {
+                isShooting = false;
+            }
         }
     }
 }

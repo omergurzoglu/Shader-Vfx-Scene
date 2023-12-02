@@ -41,7 +41,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RippleSize: 2
-    - _RippleSpeed: 1
+    - _RippleSpeed: 5
     - _RippleTime: -1
     m_Colors:
     - _HitPosition: {r: -11, g: 31, b: 32, a: 0}

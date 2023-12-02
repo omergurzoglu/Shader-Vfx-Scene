@@ -23,10 +23,10 @@ namespace Objects
             material.SetVector(HitPosition,startPos);
             float currentTime = 0f; 
 
-            while (currentTime < 0.7f)
+            while (currentTime < 5f)
             {
                 currentTime += Time.deltaTime;
-                float lerpValue = Mathf.Lerp(0f, 30f, currentTime / 0.7f);
+                float lerpValue = Mathf.Lerp(0f, 90f, currentTime / 5f);
                 material.SetFloat(RippleTime, lerpValue);
                 yield return null; // Wait for a frame
             }
