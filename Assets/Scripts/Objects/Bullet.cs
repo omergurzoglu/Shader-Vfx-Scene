@@ -1,14 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using User;
+
 
 namespace Objects
 {
     public class Bullet : MonoBehaviour
     {
-        public float speed = 75f;
+        public float speed = 60f;
         private TrailRenderer trailRenderer;
         public Vector3 moveDirection;
+        public static event Action<Vector3> OnBulletHit;
+
         
         private void Awake()
         {
@@ -23,10 +26,8 @@ namespace Objects
         {
             if (other.TryGetComponent<Shield>(out var shield))
             {
-                Deactivate();
-            }
-            if (other.TryGetComponent<PlayerBody>(out var player))
-            {
+                OnBulletHit?.Invoke(transform.position);
+                shield.StartRippleCoroutine(transform.position);
                 Deactivate();
             }
         }

@@ -23,6 +23,7 @@ namespace Disc
         [SerializeField] private float rotationSmoothing = 0.1f; // Smoothing factor for rotation
         [SerializeField] private VisualEffect discImpactEffect;
 
+        private TrailRenderer trailRenderer;
         private Vector3 controlPoint1;
         private Vector3 controlPoint2;
         private Tween verticalTween;
@@ -34,6 +35,8 @@ namespace Disc
 
         private void Start()
         {
+            trailRenderer = GetComponent<TrailRenderer>();
+            trailRenderer.enabled = false;
             discImpactEffect.Stop();
             camera=Camera.main;
             Vector3 currentRotation = transform.localEulerAngles;
@@ -95,6 +98,8 @@ namespace Disc
                  transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothing);
                  yield return null;
              }
+
+             trailRenderer.enabled = false;
              transform.position = discParentTransform.position;
              transform.rotation = initialLocalRotation;
              transform.SetParent(discParentTransform);
@@ -142,6 +147,7 @@ namespace Disc
             float time = 0;
             int currentPointIndex = 0;
             Vector3 globalUp = Vector3.up;
+            trailRenderer.enabled = true;
 
             while (currentPointIndex < pathPoints.Count - 1)
             {

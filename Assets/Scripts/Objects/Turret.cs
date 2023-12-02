@@ -44,7 +44,17 @@ namespace Objects
             {
                 bullet.transform.position = bulletSpawnPos.position;
                 Vector3 directionToPlayer = (player.position - bulletSpawnPos.position).normalized;
-                bullet.Activate(directionToPlayer);
+                
+                float recoilMagnitude = 0.06f; // Adjust this value for more or less recoil
+                Vector3 recoilOffset = new Vector3(
+                    Random.Range(-recoilMagnitude, recoilMagnitude), // x-axis offset
+                    Random.Range(-recoilMagnitude, recoilMagnitude), // y-axis offset
+                    0 // z-axis offset, assuming you're working in 2D
+                );
+                Vector3 directionWithRecoil = directionToPlayer + recoilOffset;
+                directionWithRecoil.Normalize(); // Re-normalize the vector after applying the offset
+                
+                bullet.Activate(directionWithRecoil);
             }
         }
         private Bullet GetPooledBullet()
