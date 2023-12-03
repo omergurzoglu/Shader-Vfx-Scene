@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Timeline;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace User
 {
@@ -20,12 +26,37 @@ namespace User
         [SerializeField] private LayerMask groundLayer;
         private Vector3 slopeDirection;
         [SerializeField] private Transform groundCheck;
+        [SerializeField] private Volume volume;
+        private MotionBlur motionBlur;
+        private ChromaticAberration chromatic;
 
         private RaycastHit slopeHit;
+        private bool isDashing;
+        private new Camera camera;
+        
+        [SerializeField] private float dashDuration = 0.2f;
+        [SerializeField] private float chromaticTargetIntensity = 1f;
+        [SerializeField] private float fovTarget = 90;
+        private float defaultChromaticIntensity;
+        private float defaultFov;
+       
+
+
         private void Start()
         {
+            camera=Camera.main;
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
+            volume.profile.TryGet<MotionBlur>(out var blur);
+            {
+                motionBlur = blur;
+            }
+            volume.profile.TryGet<ChromaticAberration>(out var chromaticAberration);
+            {
+                chromatic = chromaticAberration;
+            }
+            defaultChromaticIntensity = chromatic.intensity.value;
+            defaultFov = camera.fieldOfView;
         }
 
         private void Update()
@@ -47,7 +78,55 @@ namespace User
             {
                 moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
             }
+
+            if (Input.GetKeyDown(KeyCode.Q) && !isDashing)
+            {
+               Dash();
+            }
         }
+
+        private void Dash()
+        {
+            if (!isDashing)
+            { 
+                isDashing = true;
+                rb.AddForce(orientation.forward*150f,ForceMode.Impulse);
+                StartCoroutine(DashMotionBlur());
+            }
+           
+        }
+
+        private IEnumerator DashMotionBlur()
+        {
+            
+            yield return LerpDashValues(chromaticTargetIntensity, fovTarget, dashDuration);
+
+            // Lerp back to default values
+            yield return LerpDashValues(defaultChromaticIntensity, defaultFov, dashDuration);
+            isDashing = false;
+
+           
+        }
+
+        private IEnumerator LerpDashValues(float targetChromatic, float targetFov, float duration)
+        {
+            float time = 0f;
+            float startChromatic = chromatic.intensity.value;
+            float startFov = camera.fieldOfView;
+
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                chromatic.intensity.value = Mathf.Lerp(startChromatic, targetChromatic, time / duration);
+                camera.fieldOfView = Mathf.Lerp(startFov, targetFov, time / duration);
+                yield return null;
+            }
+        }
+
+
+
+
+
 
         private bool OnSlope()
         {

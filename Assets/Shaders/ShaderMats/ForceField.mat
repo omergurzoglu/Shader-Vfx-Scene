@@ -28,5 +28,5 @@ Material:
     - _IntersectionPower: 1
     - _RimPower: 1
     m_Colors:
-    - _MainColor: {r: 1, g: 0, b: 0.23229694, a: 1}
+    - _MainColor: {r: 0, g: 0.8322332, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -69,7 +69,7 @@ Shader "Kaima/Depth/ForceField"
 				float intersect = (1 - (screenZ - i.eyeZ)) * _IntersectionPower;
 				float v = max (rim, intersect);
 
-				return _MainColor * v;
+				return _MainColor*2*v;
 			}
 			ENDCG
 		}

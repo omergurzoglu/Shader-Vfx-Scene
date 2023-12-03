@@ -16,14 +16,15 @@ namespace User
         public float tilt { get; private set; }
         private Rigidbody rb;
         private RaycastHit leftWallHit, rightWallHit;
+        public LayerMask wallLayer;
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
         }
         private void CheckWall()
         {
-            wallLeft = Physics.Raycast(transform.position, -orientation.right,out leftWallHit, wallDistance);
-            wallRight = Physics.Raycast(transform.position, orientation.right,out rightWallHit, wallDistance);
+            wallLeft = Physics.Raycast(transform.position, -orientation.right,out leftWallHit, wallDistance,wallLayer);
+            wallRight = Physics.Raycast(transform.position, orientation.right,out rightWallHit, wallDistance,wallLayer);
         }
         private bool CanWallRun()
         {
