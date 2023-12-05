@@ -35,7 +35,7 @@ namespace User
         private new Camera camera;
         
         [SerializeField] private float dashDuration = 0.2f;
-        [SerializeField] private float chromaticTargetIntensity = 1f;
+        [SerializeField] private float chromaticTargetIntensity = 10f;
         [SerializeField] private float fovTarget = 90;
         private float defaultChromaticIntensity;
         private float defaultFov;
@@ -57,6 +57,7 @@ namespace User
             }
             defaultChromaticIntensity = chromatic.intensity.value;
             defaultFov = camera.fieldOfView;
+            chromatic.intensity.max = 10f;
         }
 
         private void Update()
