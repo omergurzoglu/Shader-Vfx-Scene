@@ -125,9 +125,7 @@ namespace User
         }
 
 
-
-
-
+        
 
         private bool OnSlope()
         {

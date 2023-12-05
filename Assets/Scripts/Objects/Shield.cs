@@ -12,6 +12,8 @@ namespace Objects
         private MeshRenderer meshRenderer;
         private bool shieldActive;
         [SerializeField] private float rippleDuration;
+        private static readonly int Amplitude = Shader.PropertyToID("_Amplitude");
+        private static readonly int HitOrigin = Shader.PropertyToID("_HitOrigin");
 
         private void Awake()
         {
@@ -28,7 +30,7 @@ namespace Objects
         {
             float currentTime = 0f;
             Vector3 localStartPos = transform.InverseTransformPoint(worldStartPos);
-            shieldMaterial.SetVector("_HitOrigin", localStartPos);
+            shieldMaterial.SetVector(HitOrigin, localStartPos);
             
 
             // Increase amplitude from 0 to 0.1
@@ -36,7 +38,7 @@ namespace Objects
             {
                 float alpha = currentTime / rippleDuration;
                 float amplitude = Mathf.Lerp(0f, 0.3f, alpha);
-                shieldMaterial.SetFloat("_Amplitude", amplitude);
+                shieldMaterial.SetFloat(Amplitude, amplitude);
                 currentTime += Time.deltaTime;
                 yield return null;
             }
@@ -47,10 +49,11 @@ namespace Objects
             {
                 float alpha = currentTime / rippleDuration;
                 float amplitude = Mathf.Lerp(0.3f, 0f, alpha);
-                shieldMaterial.SetFloat("_Amplitude", amplitude);
+                shieldMaterial.SetFloat(Amplitude, amplitude);
                 currentTime += Time.deltaTime;
                 yield return null;
             }
+            shieldMaterial.SetFloat(Amplitude,0f);
         }
 
         private void Update()
@@ -58,10 +61,6 @@ namespace Objects
             if (Input.GetMouseButtonDown(1))
             {
                 ToggleShield();
-            }
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                //StartCoroutine(RippleCoroutine());
             }
         }
 
@@ -79,7 +78,6 @@ namespace Objects
                 shieldMaterial.DOFloat(1f,"_DissolveAmount",0.5f).SetEase(Ease.InQuad);
                 
             }
-           
         }
     }
 

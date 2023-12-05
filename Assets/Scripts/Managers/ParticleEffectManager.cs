@@ -9,7 +9,7 @@ namespace Managers
     public class ParticleEffectManager : MonoBehaviour
     {
         
-        public int poolSize = 10; // Initial size of the pool
+        public int poolSize = 20; // Initial size of the pool
         [SerializeField] private VisualEffect bulletImpactVfx;
         private Queue<VisualEffect> particlePool = new Queue<VisualEffect>();
         private void Awake()
@@ -40,7 +40,7 @@ namespace Managers
         }
         private IEnumerator DeactivateAndEnqueueParticle(VisualEffect particle)
         {
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.4f);
             particle.gameObject.SetActive(false);
             particlePool.Enqueue(particle);
         }

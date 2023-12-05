@@ -181,7 +181,7 @@ namespace Disc
             Quaternion finalRotation = Quaternion.FromToRotation(Vector3.forward, finalNormal);
             transform.rotation = finalRotation;
             PlayDiscImpactEffect(transform.position,finalRotation);
-            if (hexHit)
+            if (hexHit && !hexGrid.effectActive)
             {
                 StartCoroutine(hexGrid.HexScan(transform.position));
             }

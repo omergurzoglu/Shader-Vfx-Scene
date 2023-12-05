@@ -11,6 +11,7 @@ namespace Objects
         private MeshRenderer meshRenderer;
         private static readonly int HitPosition = Shader.PropertyToID("_HitPosition");
         private static readonly int RippleTime = Shader.PropertyToID("_RippleTime");
+        public bool effectActive;
 
         private void Awake()
         {
@@ -20,21 +21,18 @@ namespace Objects
 
         public IEnumerator HexScan(Vector3 startPos)
         {
+            effectActive = true;
             material.SetVector(HitPosition,startPos);
             float currentTime = 0f; 
-
             while (currentTime < 5f)
             {
                 currentTime += Time.deltaTime;
                 float lerpValue = Mathf.Lerp(0f, 90f, currentTime / 5f);
                 material.SetFloat(RippleTime, lerpValue);
-                yield return null; // Wait for a frame
+                yield return null; 
             }
-
-            material.SetFloat(RippleTime, -2); // Reset to default value
-          
-           
-            
+            material.SetFloat(RippleTime, -2);
+            effectActive = false;
         }
     }
 

@@ -30,19 +30,19 @@ namespace Objects
             forceField.transform.localScale = Vector3.zero;
 
             // Play initial scale-up and light tweens
-            yield return PlayTweens(new Vector3(10f, 10f, 10f), 80f, 100f);
+            yield return PlayTweens(new Vector3(15f, 15f, 15f), 2000f, 100f);
 
             // Play scale-down and light tweens
-            yield return PlayTweens(Vector3.zero, 5f, 0f);
+            yield return PlayTweens(Vector3.zero, 200f, 0f);
 
             // Play the VFX
             vfx.Play();
 
             // Only play the light tweens after the VFX
-            yield return PlayLightTweens(80f, 100f);
+            yield return PlayLightTweens(200f, 100f);
 
             // Finally, decrease light range and intensity
-            yield return PlayLightTweens(2f, 0f);
+            yield return PlayLightTweens(0f, 0f);
 
             // Disable the force field GameObject
             forceField.gameObject.SetActive(false);
@@ -51,9 +51,9 @@ namespace Objects
 
         private IEnumerator PlayTweens(Vector3 scale, float lightRange, float lightIntensity)
         {
-            Tween scaleTween = forceField.transform.DOScale(scale, 0.2f).SetEase(Ease.InOutSine);
-            Tween lightRangeTween = DOTween.To(() => pointLight.range, x => pointLight.range = x, lightRange, 0.2f).SetEase(Ease.InOutSine);
-            Tween lightIntensityTween = DOTween.To(() => pointLight.intensity, x => pointLight.intensity = x, lightIntensity, 0.2f).SetEase(Ease.InOutSine);
+            Tween scaleTween = forceField.transform.DOScale(scale, 0.35f).SetEase(Ease.InOutSine);
+            Tween lightRangeTween = DOTween.To(() => pointLight.range, x => pointLight.range = x, lightRange, 0.35f).SetEase(Ease.InOutSine);
+            Tween lightIntensityTween = DOTween.To(() => pointLight.intensity, x => pointLight.intensity = x, lightIntensity, 0.35f).SetEase(Ease.InOutSine);
 
             yield return DOTween.Sequence().Join(scaleTween).Join(lightRangeTween).Join(lightIntensityTween).Play().WaitForCompletion();
         }
