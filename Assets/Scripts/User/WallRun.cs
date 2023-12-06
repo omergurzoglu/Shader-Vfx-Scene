@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -13,18 +14,69 @@ namespace User
         [SerializeField] private float wallRunGravity;
         [SerializeField] private float wallJumpForce;
         [SerializeField] private float fov, wallRunFov, wallRunFovTime,cameraTilt,cameraTiltTime;
+        [SerializeField] private Transform discParentTransform;
+        
+        [SerializeField] private Transform discTransform; // The Transform of the disc
+        [SerializeField] private float rotationDuration = 0.2f; // Duration for the rotation animation
+        [SerializeField] private Vector3 rotationWhenLeft = new Vector3(-15f, -73f, -27f); // Rotation for left
+        [SerializeField] private Vector3 rotationWhenRight = Vector3.zero; // Rotation for right (0,0,0)
+        
         public float tilt { get; private set; }
         private Rigidbody rb;
         private RaycastHit leftWallHit, rightWallHit;
         public LayerMask wallLayer;
+        
+        private bool hasHitLeftWall = false;
+        private bool hasHitRightWall = false;
+        private Vector3 discLeftPos, discRightPos;
+        
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            discRightPos = discParentTransform.localPosition;
+            discLeftPos = discRightPos + new Vector3(-0.7f, 0f, 0f);
         }
         private void CheckWall()
+        
         {
+            bool previouslyWallLeft = wallLeft;
+            bool previouslyWallRight = wallRight;
+
             wallLeft = Physics.Raycast(transform.position, -orientation.right,out leftWallHit, wallDistance,wallLayer);
             wallRight = Physics.Raycast(transform.position, orientation.right,out rightWallHit, wallDistance,wallLayer);
+            
+            if (wallLeft && !previouslyWallLeft)
+            {
+                hasHitLeftWall = true;
+                discParentTransform.DOLocalMove(discRightPos, 0.2f).SetEase(Ease.InOutCirc);
+                RotateDiscParent(rotationWhenRight);
+                Debug.Log("moving disc to right");
+                
+            }
+            else if (!wallLeft && hasHitLeftWall)
+            {
+                hasHitLeftWall = false;
+                // Optionally reset position or do other actions when leaving the left wall
+            }
+
+            // Check if wallRight was hit for the first time
+            if (wallRight && !previouslyWallRight)
+            {
+                hasHitRightWall = true;
+                discParentTransform.DOLocalMove(discLeftPos, 0.2f).SetEase(Ease.InOutCirc);
+                RotateDiscParent(rotationWhenLeft);
+                Debug.Log("moving disc to left");
+            }
+            else if (!wallRight && hasHitRightWall)
+            {
+                hasHitRightWall = false;
+                // Optionally reset position or do other actions when leaving the right wall
+            }
+           
+        }
+        private void RotateDiscParent(Vector3 newRotation)
+        {
+            discParentTransform.DOLocalRotate(newRotation, rotationDuration).SetEase(Ease.InOutSine);
         }
         private bool CanWallRun()
         {

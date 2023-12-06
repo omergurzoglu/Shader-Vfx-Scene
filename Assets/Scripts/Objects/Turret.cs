@@ -19,11 +19,10 @@ namespace Objects
         [SerializeField] private float movementSpeed = 2f;
         private float angle = 0f;
         [SerializeField] private float yAmplitude = 2f;
-        [SerializeField] private float ySpeed = 0.5f;
+        
         
         private void Update()
         {
-           // MoveInCircle();
             Shoot();
         }
         private void MoveInCircle()
@@ -31,10 +30,7 @@ namespace Objects
             angle += movementSpeed * Time.deltaTime;
             float x = Mathf.Cos(angle) * radius;
             float z = Mathf.Sin(angle) * radius;
-            //float y = Mathf.Sin(angle * ySpeed) * yAmplitude;
-
-
-            // Assuming you want to move in the XZ plane around the mainPivot
+            
             mainPivot.position += mainPivot.position + new Vector3(x, 0, z);
         }
 
