@@ -122,6 +122,8 @@ namespace User
                 camera.fieldOfView = Mathf.Lerp(startFov, targetFov, time / duration);
                 yield return null;
             }
+            
+            
         }
 
 
