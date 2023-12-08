@@ -31,7 +31,7 @@
 //         float angleDeg = 60f;
 //         float angleRad = Mathf.Deg2Rad * angleDeg;
 //
-//         // Generate vertices and triangles for each hexagon
+//         
 //         for (int i = 0; i < iterations; i++)
 //         {
 //             for (int j = 0; j < 6 * i; j++)
@@ -58,13 +58,13 @@
 //         float angleDeg = 60f;
 //         float angleRad = Mathf.Deg2Rad * angleDeg;
 //
-//         // Add corner vertices
+//         
 //         for (int i = 0; i < 6; i++)
 //         {
 //             vertices.Add(center + new Vector3(size * Mathf.Cos(angleRad * i), 0, size * Mathf.Sin(angleRad * i)));
 //         }
 //
-//         // Add triangles
+//        
 //         for (int i = 0; i < 6; i++)
 //         {
 //             triangles.Add(vertexIndex);
