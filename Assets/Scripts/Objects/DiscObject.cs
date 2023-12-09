@@ -21,7 +21,7 @@ namespace Disc
         [SerializeField] private Transform discParentTransform; // Reference to the player's transform
         [SerializeField] private float returnSpeed = 5f; // Speed at which the disc returns to the player
         [SerializeField] private float rotationSmoothing = 0.1f; // Smoothing factor for rotation
-        [SerializeField] private VisualEffect discImpactEffect;
+        [SerializeField] private VisualEffect discImpactEffect,discImpactEffect2;
 
         private TrailRenderer trailRenderer;
         private Vector3 controlPoint1;
@@ -30,7 +30,7 @@ namespace Disc
         private List<Vector3> bezierPathPoints;
         private Quaternion initialLocalRotation;
         [SerializeField]private LayerMask discLayerMask;
-        [SerializeField]private float discEffectDuration=0.2f;
+        [SerializeField]private float discEffectDuration=0.15f;
 
 
         private void Start()
@@ -113,9 +113,24 @@ namespace Disc
          private IEnumerator PlayEffectCoroutine(Vector3 pos, Quaternion rot)
          {
              discImpactEffect.transform.position = pos;
+             discImpactEffect2.transform.position = pos;
+
+             // Direction from the discParentTransform to the player
+             Vector3 dir = (transform.position - discParentTransform.position).normalized;
+
+             // Create a rotation where the Z-axis points towards the player
+             Quaternion effectRotation = Quaternion.LookRotation(dir, Vector3.up);
+
+             // Rotate the quaternion 90 degrees around the X-axis to align the Y-axis with 'dir',
+             // and then 180 degrees around the Z-axis to flip the direction
+             effectRotation *= Quaternion.Euler(90, 0, 180);
+             
+             discImpactEffect2.transform.rotation = effectRotation;
              discImpactEffect.Play();
+             discImpactEffect2.Play();
              yield return new WaitForSeconds(discEffectDuration);
              discImpactEffect.Stop();
+             discImpactEffect2.Stop();
          }
 
          private void OnTriggerEnter(Collider other)
@@ -126,10 +141,15 @@ namespace Disc
                  Vector3 hitPos = other.ClosestPoint(transform.position);
                  PlayDiscImpactEffect(hitPos,default);
                  Vector3 hitDirection = (dummy.transform.position - discParentTransform.position).normalized;
-                 //Debug.Log(hitDirection);
                  dummy.DeathVfx(hitDirection);
                  dummy.Dissolve();
-                 //Debug.DrawRay(transform.position, hitDirection * 5f, Color.red, 2f);
+             }
+
+             if (other.TryGetComponent<Turret>(out var turret))
+             {
+                 Vector3 hitPos = other.ClosestPoint(transform.position);
+                 PlayDiscImpactEffect(hitPos,default);
+                 turret.TurretExplosion();
              }
          }
 

@@ -1,4 +1,5 @@
-﻿using Disc;
+﻿using System.Collections;
+using Disc;
 using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,30 +11,91 @@ namespace Objects
         public Transform player;
         public float fireRate = 0.5f;
         private float nextFireTime = 0f;
-        [SerializeField] private Transform mainPivot;
+        [SerializeField] private Transform explosionStartPos;
         [SerializeField] public bool isShooting;
         [SerializeField] private Transform bulletSpawnPos;
         [SerializeField] private ExplosionEffect turretExplosionVfx;
-        
-        [SerializeField] private float radius = 25f;
-        [SerializeField] private float movementSpeed = 2f;
-        private float angle = 0f;
-        [SerializeField] private float yAmplitude = 2f;
-        
-        
+        private Material[] materials = new Material[2];
+        [SerializeField] private MeshRenderer[] meshRenderers;
+        [SerializeField] private Color[] colors = new Color[10]; // Add your 10 colors here
+        private float maxRippleTime = 4.5f;
+        private static readonly int RippleTime = Shader.PropertyToID("_RippleTime");
+        private static readonly int Color1 = Shader.PropertyToID("_Color");
+
+        private void Awake()
+        {
+            for (var i = 0; i < meshRenderers.Length; i++)
+            {
+                var meshRenderer = meshRenderers[i];
+                materials[i] = meshRenderer.material;
+            }
+        }
+
+        private void Start()
+        {
+            StartCoroutine(ChangeColorAndRipple());
+        }
+
+        private IEnumerator ChangeColorAndRipple()
+        {
+            int colorIndex = 0;
+            float colorChangeInterval = 0.012f;
+            float colorChangeTimer = 0f;
+
+            float rippleTime = 0f;
+            float rippleIncrement = 0.35f; 
+            bool isRippleTimeIncreasing = true;
+            float rippleChangeInterval = 0.06f; 
+            float rippleChangeTimer = 0f;
+
+            while (true)
+            {
+                colorChangeTimer += Time.deltaTime;
+                if (colorChangeTimer >= colorChangeInterval)
+                {
+                    foreach (var material in materials)
+                    {
+                        material.SetColor(Color1, colors[colorIndex] * 40);
+                    }
+                    colorIndex = (colorIndex + 1) % colors.Length;
+                    colorChangeTimer = 0f;
+                }
+                
+                rippleChangeTimer += Time.deltaTime;
+                if (rippleChangeTimer >= rippleChangeInterval)
+                {
+                    if (isRippleTimeIncreasing)
+                    {
+                        rippleTime += rippleIncrement;
+                        if (rippleTime >= maxRippleTime)
+                        {
+                            rippleTime = maxRippleTime;
+                            isRippleTimeIncreasing = false;
+                        }
+                    }
+                    else
+                    {
+                        rippleTime -= rippleIncrement;
+                        if (rippleTime <= 0)
+                        {
+                            rippleTime = 0;
+                            isRippleTimeIncreasing = true;
+                        }
+                    }
+                    foreach (var material in materials)
+                    {
+                        material.SetFloat(RippleTime, rippleTime);
+                    }
+                    rippleChangeTimer = 0f;
+                }
+                yield return null; 
+            }
+        }
+
         private void Update()
         {
             Shoot();
         }
-        private void MoveInCircle()
-        {
-            angle += movementSpeed * Time.deltaTime;
-            float x = Mathf.Cos(angle) * radius;
-            float z = Mathf.Sin(angle) * radius;
-            
-            mainPivot.position += mainPivot.position + new Vector3(x, 0, z);
-        }
-
         private void Shoot()
         {
             if (isShooting)
@@ -75,15 +137,16 @@ namespace Objects
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<DiscObject>(out var disc))
+            if (other.TryGetComponent<DiscObject>(out _))
             {
-                TurretExplosion();
+                //TurretExplosion();
             }
         }
 
-        private void TurretExplosion()
+        public void TurretExplosion()
         {
-            turretExplosionVfx.PlayEffect(transform.position);
+           
+            turretExplosionVfx.PlayEffect(explosionStartPos.position);
         }
 
     

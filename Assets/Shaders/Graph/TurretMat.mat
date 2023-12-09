@@ -44,12 +44,12 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RippleTime: 2.12
+    - _RippleTime: 1.93
     - _Size: 0.29
     - _Speed: 1
     - _Yvalue: 0
     m_Colors:
-    - _Color: {r: 0.19151337, g: 0.013655721, b: 2.6082377, a: 0}
+    - _Color: {r: 25.992073, g: 25.992073, b: 25.992073, a: 0}
     - _Tile: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5114786436799996834
