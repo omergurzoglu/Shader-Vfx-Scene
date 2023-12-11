@@ -9,7 +9,7 @@ namespace Objects
         [SerializeField] private Turret turret;
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<PlayerBody>(out var playerBody))
+            if (other.TryGetComponent<PlayerBody>(out _))
             {
                 turret.isShooting = true;
             }
@@ -17,7 +17,7 @@ namespace Objects
         }
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<PlayerBody>(out var playerBody))
+            if (other.TryGetComponent<PlayerBody>(out _))
             {
                 turret.isShooting = false;
             }

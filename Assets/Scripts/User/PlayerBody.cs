@@ -1,7 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -94,19 +91,12 @@ namespace User
                 rb.AddForce(orientation.forward*150f,ForceMode.Impulse);
                 StartCoroutine(DashMotionBlur());
             }
-           
         }
-
         private IEnumerator DashMotionBlur()
         {
-            
             yield return LerpDashValues(chromaticTargetIntensity, fovTarget, dashDuration);
-
-            // Lerp back to default values
             yield return LerpDashValues(defaultChromaticIntensity, defaultFov, dashDuration);
             isDashing = false;
-
-           
         }
 
         private IEnumerator LerpDashValues(float targetChromatic, float targetFov, float duration)
@@ -122,13 +112,7 @@ namespace User
                 camera.fieldOfView = Mathf.Lerp(startFov, targetFov, time / duration);
                 yield return null;
             }
-            
-            
         }
-
-
-        
-
         private bool OnSlope()
         {
             if (Physics.Raycast(transform.position,Vector3.down,out slopeHit,playerHeight/2+0.5f))

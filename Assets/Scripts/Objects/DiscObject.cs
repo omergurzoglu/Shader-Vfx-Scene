@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Objects;
@@ -10,17 +9,17 @@ namespace Disc
 {
     public class DiscObject : MonoBehaviour
     {
-        public bool discOnMotion;
         private new Camera camera;
-        [SerializeField] private float verticalMoveDistance = 0.5f; // The distance the disc moves up and down
-        [SerializeField] private float verticalMoveDuration = 2.0f; // Duration for one complete up and down cycle
-        [SerializeField] private int minPoints = 10; // Minimum number of points in the Bezier path
-        [SerializeField] private int maxPoints = 30; // Maximum number of points in the Bezier path
+        
+        [SerializeField] private float verticalMoveDistance = 0.5f; 
+        [SerializeField] private float verticalMoveDuration = 2.0f; 
+        [SerializeField] private int minPoints = 10;
+        [SerializeField] private int maxPoints = 30; 
         [SerializeField] private float distanceFactor = 0.5f; // Factor to control curve smoothness
-        [SerializeField] private float constantSpeed = 5f; // Speed of the disc along the path
-        [SerializeField] private Transform discParentTransform; // Reference to the player's transform
-        [SerializeField] private float returnSpeed = 5f; // Speed at which the disc returns to the player
-        [SerializeField] private float rotationSmoothing = 0.1f; // Smoothing factor for rotation
+        [SerializeField] private float constantSpeed = 5f; 
+        [SerializeField] private Transform discParentTransform; 
+        [SerializeField] private float returnSpeed = 5f; 
+        [SerializeField] private float rotationSmoothing = 0.1f; 
         [SerializeField] private VisualEffect discImpactEffect,discImpactEffect2;
 
         private TrailRenderer trailRenderer;
@@ -60,7 +59,7 @@ namespace Disc
             initialLocalRotation = transform.rotation;
         }
         
-         private void Update()
+        private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -76,19 +75,15 @@ namespace Disc
                         : MoveAlongPath(pathPoints, false,null));
                 }
             }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                ReturnToStart();
-            }
         }
-         public void ReturnToStart()
+         private void ReturnToStart()
          {
              StartCoroutine(ReturnToStartPosition());
          }
          private IEnumerator ReturnToStartPosition()
          {
-             Vector3 startPosition = transform.position;
-             Quaternion startRotation = transform.rotation; // Use the current rotation as the start
+             // Vector3 startPosition = transform.position;
+             // Quaternion startRotation = transform.rotation; // Use the current rotation as the start
 
              while (Vector3.Distance(transform.position, discParentTransform.position) > 1.10f)
              {
@@ -114,21 +109,20 @@ namespace Disc
          {
              discImpactEffect.transform.position = pos;
              discImpactEffect2.transform.position = pos;
-
-             // Direction from the discParentTransform to the player
+             
              Vector3 dir = (transform.position - discParentTransform.position).normalized;
-
-             // Create a rotation where the Z-axis points towards the player
+             
              Quaternion effectRotation = Quaternion.LookRotation(dir, Vector3.up);
-
-             // Rotate the quaternion 90 degrees around the X-axis to align the Y-axis with 'dir',
-             // and then 180 degrees around the Z-axis to flip the direction
              effectRotation *= Quaternion.Euler(90, 0, 180);
+             Vector3 randomOffset = new Vector3(Random.Range(0, 5), Random.Range(0, 5), Random.Range(0, 5));
+             effectRotation *= Quaternion.Euler(randomOffset);
              
              discImpactEffect2.transform.rotation = effectRotation;
              discImpactEffect.Play();
              discImpactEffect2.Play();
+             
              yield return new WaitForSeconds(discEffectDuration);
+             
              discImpactEffect.Stop();
              discImpactEffect2.Stop();
          }
@@ -149,10 +143,10 @@ namespace Disc
              {
                  Vector3 hitPos = other.ClosestPoint(transform.position);
                  PlayDiscImpactEffect(hitPos,default);
+                 turret.StartDissolve(1.2f);
                  turret.TurretExplosion();
              }
          }
-
         
          #region Bezier
         

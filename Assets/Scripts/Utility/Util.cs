@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace Utility
 {
     public class Util : MonoBehaviour
     {

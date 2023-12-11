@@ -9,9 +9,9 @@ namespace Managers
     public class ParticleEffectManager : MonoBehaviour
     {
         
-        public int poolSize = 20; // Initial size of the pool
+        public int poolSize = 20; 
         [SerializeField] private VisualEffect bulletImpactVfx;
-        private Queue<VisualEffect> particlePool = new Queue<VisualEffect>();
+        private readonly Queue<VisualEffect> particlePool = new Queue<VisualEffect>();
         private void Awake()
         {
             InitializePool();

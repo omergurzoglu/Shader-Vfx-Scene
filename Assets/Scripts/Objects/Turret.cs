@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Disc;
 using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,12 +14,14 @@ namespace Objects
         [SerializeField] public bool isShooting;
         [SerializeField] private Transform bulletSpawnPos;
         [SerializeField] private ExplosionEffect turretExplosionVfx;
-        private Material[] materials = new Material[2];
+        [SerializeField] private bool turretActive;
+        private readonly Material[] materials = new Material[2];
         [SerializeField] private MeshRenderer[] meshRenderers;
         [SerializeField] private Color[] colors = new Color[10]; // Add your 10 colors here
-        private float maxRippleTime = 4.5f;
+        private const float maxRippleTime = 4.5f;
         private static readonly int RippleTime = Shader.PropertyToID("_RippleTime");
         private static readonly int Color1 = Shader.PropertyToID("_Color");
+        private static readonly int DissolveAmount = Shader.PropertyToID("_DissolveAmount");
 
         private void Awake()
         {
@@ -39,7 +40,7 @@ namespace Objects
         private IEnumerator ChangeColorAndRipple()
         {
             int colorIndex = 0;
-            float colorChangeInterval = 0.012f;
+            float colorChangeInterval = 0.09f;
             float colorChangeTimer = 0f;
 
             float rippleTime = 0f;
@@ -55,7 +56,7 @@ namespace Objects
                 {
                     foreach (var material in materials)
                     {
-                        material.SetColor(Color1, colors[colorIndex] * 40);
+                        material.SetColor(Color1, colors[colorIndex] * 50);
                     }
                     colorIndex = (colorIndex + 1) % colors.Length;
                     colorChangeTimer = 0f;
@@ -92,6 +93,30 @@ namespace Objects
             }
         }
 
+        public void StartDissolve(float time)
+        {
+            StartCoroutine(DissolveOverTime(time));
+        }
+        private IEnumerator DissolveOverTime(float duration)
+        {
+            float currentTime = 0;
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                float dissolveAmount = Mathf.Lerp(0, 1, currentTime / duration);
+                foreach (var material in materials)
+                {
+                    material.SetFloat(DissolveAmount, dissolveAmount);
+                }
+               
+                yield return null;
+            }
+            foreach (var material in materials)
+            {
+                material.SetFloat(DissolveAmount, 1);
+            } 
+            gameObject.SetActive(false);
+        }
         private void Update()
         {
             Shoot();
@@ -113,7 +138,6 @@ namespace Objects
                 }
             }
         }
-
         private void Fire()
         {
             Bullet bullet = BulletPool.GetBullet();
@@ -134,18 +158,9 @@ namespace Objects
                 bullet.Activate(directionWithRecoil);
             }
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent<DiscObject>(out _))
-            {
-                //TurretExplosion();
-            }
-        }
-
         public void TurretExplosion()
         {
-           
+            isShooting = false;
             turretExplosionVfx.PlayEffect(explosionStartPos.position);
         }
 

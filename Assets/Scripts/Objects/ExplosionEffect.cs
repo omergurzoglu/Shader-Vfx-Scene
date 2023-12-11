@@ -11,9 +11,11 @@ namespace Objects
         [SerializeField] private GameObject forceField;
         [SerializeField] private VisualEffect vfx;
         public bool isPlaying = false;
+        private new Camera camera;
 
         private void Awake()
         {
+            camera= Camera.main;
             forceField.gameObject.SetActive(false);
         }
 
@@ -28,32 +30,23 @@ namespace Objects
             {
                 yield break;
             }
-
             isPlaying = true;
             transform.position = pos;
-            
             forceField.gameObject.SetActive(true);
             pointLight.gameObject.SetActive(true);
             forceField.transform.localScale = Vector3.zero;
-
-            // Play initial scale-up and light tweens
+            
             yield return PlayTweens(new Vector3(20f, 20f, 20f), 2000f, 350f);
-
-            // Play scale-down and light tweens
             yield return PlayTweens(Vector3.zero, 200f, 0f);
-
-            // Play the VFX
+            
             vfx.Play();
-
-            // Only play the light tweens after the VFX
+            ShakeCamera(0.3f, 0.9f);
+            
             yield return PlayLightTweens(2000f, 300f);
-
-            // Finally, decrease light range and intensity
             yield return PlayLightTweens(0f, 0f);
             yield return new WaitForSeconds(2f);
-
+            
             isPlaying = false;
-            // Disable the force field GameObject
             forceField.gameObject.SetActive(false);
             pointLight.gameObject.SetActive(false);
         }
@@ -74,13 +67,10 @@ namespace Objects
 
             yield return DOTween.Sequence().Join(lightRangeTween).Join(lightIntensityTween).Play().WaitForCompletion();
         }
-
-        private void Update()
+        private void ShakeCamera(float duration, float strength)
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                PlayEffect(transform.position);
-            }
+            camera.DOShakePosition(duration, strength,50,90f,true,ShakeRandomnessMode.Harmonic);
         }
+        
     }
 }

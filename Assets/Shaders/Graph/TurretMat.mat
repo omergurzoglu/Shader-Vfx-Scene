@@ -42,14 +42,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DissolveAmount: 0
+    - _EdgeWidth: 0.01
+    - _Metal: 0.3
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RippleTime: 1.93
+    - _RippleTime: 1
     - _Size: 0.29
+    - _Smooth: 0.6
     - _Speed: 1
     - _Yvalue: 0
     m_Colors:
     - _Color: {r: 25.992073, g: 25.992073, b: 25.992073, a: 0}
+    - _DisolveColor: {r: 11.984315, g: 6.832153, b: 0, a: 0}
     - _Tile: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5114786436799996834

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -32,8 +30,6 @@ namespace Objects
             Vector3 localStartPos = transform.InverseTransformPoint(worldStartPos);
             shieldMaterial.SetVector(HitOrigin, localStartPos);
             
-
-            // Increase amplitude from 0 to 0.1
             while (currentTime < rippleDuration)
             {
                 float alpha = currentTime / rippleDuration;
@@ -42,9 +38,7 @@ namespace Objects
                 currentTime += Time.deltaTime;
                 yield return null;
             }
-            // Reset currentTime for the decreasing phase
             currentTime = 0f;
-            // Decrease amplitude from 0.1 back to 0
             while (currentTime < rippleDuration)
             {
                 float alpha = currentTime / rippleDuration;

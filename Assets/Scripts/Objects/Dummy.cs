@@ -1,7 +1,5 @@
 ﻿
 using System.Collections;
-using System.Threading.Tasks;
-using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.VFX;
 namespace Objects
@@ -10,9 +8,10 @@ namespace Objects
     {
         [SerializeField] private VisualEffect vfx;
         [SerializeField] private MeshRenderer meshRenderer;
-        [SerializeField] private float dissolveDuration=0.5f;
+        [SerializeField] private float dissolveDuration;
 
         private Material dummyMaterial;
+        private static readonly int DissolveAmount = Shader.PropertyToID("_DissolveAmount");
 
         private void Awake()
         {
@@ -30,7 +29,7 @@ namespace Objects
         }
         public void Dissolve()
         {
-            StartCoroutine(DissolveOverTime(dissolveDuration)); // 2 seconds for dissolve effect
+            StartCoroutine(DissolveOverTime(dissolveDuration)); 
         }
 
         private IEnumerator DissolveOverTime(float duration)
@@ -40,13 +39,13 @@ namespace Objects
             {
                 currentTime += Time.deltaTime;
                 float dissolveAmount = Mathf.Lerp(0, 1, currentTime / duration);
-                dummyMaterial.SetFloat("_DissolveAmount", dissolveAmount);
+                dummyMaterial.SetFloat(DissolveAmount, dissolveAmount);
                 yield return null;
             }
-            dummyMaterial.SetFloat("_DissolveAmount", 1); 
+            dummyMaterial.SetFloat(DissolveAmount, 1);
+            yield return new WaitForSeconds(3.8f);
+            gameObject.SetActive(false);
         }
-
-       
         
     }
 }
