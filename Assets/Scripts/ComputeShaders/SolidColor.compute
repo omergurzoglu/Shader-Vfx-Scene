@@ -1,0 +1,72 @@
+
+#pragma kernel SolidRed
+#pragma kernel SolidYellow
+#pragma kernel SplitScreen
+#pragma kernel Circle
+#pragma kernel Rectangle
+
+RWTexture2D<float4> Result;
+float time;
+int textResolution;
+
+[numthreads(8,8,1)]
+void SolidRed (uint3 id : SV_DispatchThreadID)
+{
+    Result[id.xy]=float4(1,0,0,1);
+}
+[numthreads(8,8,1)]
+void SolidYellow (uint3 id : SV_DispatchThreadID)
+{
+    Result[id.xy]=float4(1,1,0,1);
+}
+[numthreads(8,8,1)]
+void SplitScreen (uint3 id : SV_DispatchThreadID)
+{
+
+    float2 center = float2(128.0,128.0);
+    float radius = 10;
+
+    float2 position = float2(id.x,id.y);
+    float distance = length(position-center);
+    
+    if (distance < radius) {
+        Result[id.xy] = float4(1, 1, 0, 1); 
+        return;
+    }
+    float red = step(128, id.x);
+    float green = step(128, id.y);
+    float4 color = float4(red, green, 0, 1); 
+    Result[id.xy] = color;
+    
+}
+[numthreads(8,8,1)]
+void Circle (uint3 id : SV_DispatchThreadID)
+{
+    float2 center = float2(128,128);
+    float radius = 60;
+    bool isInCircle = length(float2(id.x,id.y)-center) < radius;
+    Result[id.xy] = float4(isInCircle,isInCircle,0,1);
+}
+[numthreads(8,8,1)]
+void Rectangle (uint3 id : SV_DispatchThreadID)
+{
+    // Rectangle dimensions (e.g., 1/4 of the texture size)
+    int rectWidth = 64;
+    int rectHeight = 64;
+
+    // Calculate rectangle boundaries
+    int left = (256 - rectWidth) / 2;
+    int right = left + rectWidth;
+    int top = (256 - rectHeight) / 2;
+    int bottom = top + rectHeight;
+
+    // Check if this thread's pixel falls within the rectangle
+    if (id.x >= left && id.x < right && id.y >= top && id.y < bottom) {
+        Result[id.xy] = float4(0, 0, 1, 1); // Blue
+    } else {
+        Result[id.xy] = float4(0,0,0,1);
+        // Existing logic for the rest of the texture
+        // ... (e.g., your quadrant color logic)
+    }
+}
+
