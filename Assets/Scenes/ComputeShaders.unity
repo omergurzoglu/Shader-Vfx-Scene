@@ -136,6 +136,9 @@ GameObject:
   - component: {fileID: 1058927504}
   - component: {fileID: 1058927503}
   - component: {fileID: 1058927502}
+  - component: {fileID: 1058927507}
+  - component: {fileID: 1058927508}
+  - component: {fileID: 1058927509}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -150,7 +153,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058927501}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d66e14dcf49849e291efd36a0847b0da, type: 3}
   m_Name: 
@@ -245,6 +248,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1058927507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058927501}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a4fc4de1a64835b2dcd4ecb837b36c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 7200000, guid: c36922c5f57ca634aab3f4c8ef82a23f, type: 3}
+  texResolution: 1024
+  clearColor: {r: 0, g: 1, b: 0.9233861, a: 0}
+  circleColor: {r: 1, g: 0.5087234, b: 0, a: 0}
+--- !u!114 &1058927508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058927501}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394120fb52664f3186b7d94be5070db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 7200000, guid: 4989d10da3e442b68abac6241058a5f6, type: 3}
+  texResolution: 256
+--- !u!114 &1058927509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058927501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f62fb37e7d9489e8551fac7117c26ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 7200000, guid: b0ece708f68d485e960047865a2f5c5d, type: 3}
+  texResolution: 256
+  paleColor: {r: 0.733, g: 0.565, b: 0.365, a: 1}
+  darkColor: {r: 0.49, g: 0.286, b: 0.043, a: 1}
+  frequency: 12
+  noiseScale: 12
+  ringScale: 2
+  contrast: 2
 --- !u!1 &1078144417
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +435,53 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &1949892115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1949892117}
+  - component: {fileID: 1949892116}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1949892116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949892115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51ead1e03cd4340a24a1d250e7a0a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starCount: 500
+  shader: {fileID: 7200000, guid: ea39f8680ef74fc083534d933456f418, type: 3}
+  prefab: {fileID: 1253029063840622424, guid: 24aab019df4d928409b6b201f4721340, type: 3}
+--- !u!4 &1949892117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949892115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2123036897
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,3 +607,4 @@ SceneRoots:
   - {fileID: 1078144420}
   - {fileID: 2123036899}
   - {fileID: 1058927506}
+  - {fileID: 1949892117}
