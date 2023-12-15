@@ -2,8 +2,28 @@
 #pragma kernel CSMain
 
 float delta;
+float radius;
+
+struct Vertex
+{
+    float3 position;
+    float3 normal;
+};
+
+RWStructuredBuffer<Vertex> vertexBuffer;
+StructuredBuffer<Vertex> initialBuffer;
 
 [numthreads(1,1,1)]
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
+    float3 initialPos = initialBuffer[id.x].position;
+    float3 s = float3(normalize(initialPos)*radius);
+    float3 pos = lerp(initialPos,s,delta);
+    float3 initialNormal = initialBuffer[id.x].normal;
+    float3 sNormal = normalize(initialPos);
+    float3 norm = lerp(initialNormal,sNormal,delta);
+    vertexBuffer[id.x].normal= norm;
+    vertexBuffer[id.x].position = pos;
+
+    
 }
