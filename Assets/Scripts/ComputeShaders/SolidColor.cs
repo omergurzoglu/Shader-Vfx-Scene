@@ -8,7 +8,7 @@ namespace ComputeShaders
         public ComputeShader computeShader;
         public string kernelName = "SolidRed";
         public int textResolution = 256;
-        private Renderer renderer;
+        private new Renderer renderer;
         private RenderTexture outputTexture;
         private int kernelHandle;
         
