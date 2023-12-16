@@ -45,5 +45,6 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     //   value from step 3
     float4 color = lerp(clearColor, fillColor * noise, polygonValue);
 
+    
     Result[id.xy] = color;
 }

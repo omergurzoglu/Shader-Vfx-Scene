@@ -7,6 +7,12 @@
       "dependencies": {},
       "hash": "093baf4e09c2cd21c284303a977ec112a43041a7"
     },
+    "com.tripolygon.umodeler-x": {
+      "version": "file:com.tripolygon.umodeler-x-0.15.0/com.tripolygon.umodeler-x-0.15.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

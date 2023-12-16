@@ -17,7 +17,7 @@ namespace ComputeShaders
         public Color fillColor = new Color(1.0f, 1.0f, 0.0f, 1.0f);
         public Color clearColor = new Color( 0, 0, 0.3f, 1.0f );
 
-        // Use this for initialization
+        // Use this for initialization      
         void Start()
         {
             outputTexture = new RenderTexture(texResolution, texResolution, 0);
@@ -30,6 +30,7 @@ namespace ComputeShaders
             InitShader();
         }
 
+        
         private void InitShader()
         {
             kernelHandle = shader.FindKernel("CSMain");
@@ -37,6 +38,7 @@ namespace ComputeShaders
             shader.SetVector("fillColor", fillColor);
             shader.SetVector("clearColor", clearColor);
             shader.SetInt("sides",sides);
+            
 
             shader.SetInt("texResolution", texResolution);
             shader.SetTexture(kernelHandle, "Result", outputTexture);
