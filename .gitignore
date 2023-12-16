@@ -76,3 +76,8 @@ Assets/UModeler-Hub/*
 /Assets/UModeler-Hub/*
 UModeler-Hub/*
 
+ProjectSettings/UModeler-Hub.json
+Packages/packages-lock.json
+Packages/manifest.json
+Packages/com.tripolygon.umodeler-x-0.15.0/com.tripolygon.umodeler-x-0.15.0.tgz
+Assets/UModeler-Hub.meta
