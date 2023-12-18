@@ -814,7 +814,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215688, g: 0.2716307, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1047,6 +1047,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949721042}
   - component: {fileID: 1949721041}
+  - component: {fileID: 1949721043}
   m_Layer: 0
   m_Name: Particle
   m_TagString: Untagged
@@ -1061,15 +1062,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949721040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d26b0f1cae34f6cbe65d1570287dd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleCount: 50000
+  particleCount: 500000
   material: {fileID: 2100000, guid: fa684247c643bd64fb33916e7941bd11, type: 2}
   shader: {fileID: 7200000, guid: 029287d5d6f64305a8a62f3cb9ec10cc, type: 3}
-  pointSize: 4
+  pointSize: 10
 --- !u!4 &1949721042
 Transform:
   m_ObjectHideFlags: 0
@@ -1085,6 +1086,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1949721043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949721040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f0c5428a0a4a198d6c544f42d0681d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleCount: 10000
+  material: {fileID: 2100000, guid: 9ce9f21e75bbe8e45918acb468065591, type: 2}
+  shader: {fileID: 7200000, guid: cdd2ddb71cc144fc9bbedef5c1b66c81, type: 3}
+  quadSize: 0.1
 --- !u!1 &1949892115
 GameObject:
   m_ObjectHideFlags: 0
