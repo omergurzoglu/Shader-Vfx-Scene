@@ -1186,6 +1186,7 @@ GameObject:
   - component: {fileID: 1949721043}
   - component: {fileID: 1949721044}
   - component: {fileID: 1949721045}
+  - component: {fileID: 1949721046}
   m_Layer: 0
   m_Name: CS
   m_TagString: Untagged
@@ -1269,7 +1270,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949721040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5828e9883e0c407baed9d7b276db7e30, type: 3}
   m_Name: 
@@ -1280,10 +1281,31 @@ MonoBehaviour:
   neighbourDistance: 1
   boidSpeedVariation: 1
   boidMesh: {fileID: 4300000, guid: df3bd4a39eeabea46a6553b01c18eb06, type: 2}
-  boidMaterial: {fileID: 2100000, guid: ba91fd3363ef8e34088f60a5ebdb210c, type: 2}
-  boidsCount: 0
+  boidMaterial: {fileID: 2100000, guid: eb2d9941d27bd9c4abe6db3942372850, type: 2}
+  boidsCount: 50
   spawnRadius: 5
   target: {fileID: 1909219469}
+--- !u!114 &1949721046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949721040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff9ef349cf6442dad24ada8e03d19fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boidMesh: {fileID: 4300000, guid: df3bd4a39eeabea46a6553b01c18eb06, type: 2}
+  boidMaterial: {fileID: 2100000, guid: 70609034e606bcb4da14fda5dc05d142, type: 2}
+  boidsCount: 500
+  spawnRadius: 100
+  target: {fileID: 1909219469}
+  alignmentWeight: 1
+  cohesionWeight: 2
+  separationWeight: 5
+  neighbourDistance: 5
 --- !u!1 &1949892115
 GameObject:
   m_ObjectHideFlags: 0
