@@ -1187,6 +1187,7 @@ GameObject:
   - component: {fileID: 1949721044}
   - component: {fileID: 1949721045}
   - component: {fileID: 1949721046}
+  - component: {fileID: 1949721047}
   m_Layer: 0
   m_Name: CS
   m_TagString: Untagged
@@ -1270,20 +1271,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949721040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5828e9883e0c407baed9d7b276db7e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 7200000, guid: 3238b8cec5f642399d8f3dc95bfd6f3c, type: 3}
-  rotationSpeed: 10
-  boidSpeed: 10
-  neighbourDistance: 1
-  boidSpeedVariation: 1
-  boidMesh: {fileID: 4300000, guid: df3bd4a39eeabea46a6553b01c18eb06, type: 2}
+  rotationSpeed: 15
+  boidSpeed: 15
+  neighbourDistance: 2
+  boidSpeedVariation: 0
+  boidMesh: {fileID: 3195908441318720455, guid: 271bc0c207275894f99efeb2f48854c4,
+    type: 3}
   boidMaterial: {fileID: 2100000, guid: ba91fd3363ef8e34088f60a5ebdb210c, type: 2}
   boidsCount: 50
-  spawnRadius: 10
+  spawnRadius: 20
   target: {fileID: 1909219469}
 --- !u!114 &1949721046
 MonoBehaviour:
@@ -1306,6 +1308,22 @@ MonoBehaviour:
   cohesionWeight: 0.5
   separationWeight: 2
   neighbourDistance: 10
+--- !u!114 &1949721047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949721040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e97d25da64417ebf142fb0ed5456ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instanceMesh: {fileID: 3195908441318720455, guid: 271bc0c207275894f99efeb2f48854c4,
+    type: 3}
+  instanceMaterial: {fileID: 2100000, guid: 4699e2801f83e74449929a095d5f8607, type: 2}
+  instanceCount: 50
 --- !u!1 &1949892115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,8 +1672,13 @@ PrefabInstance:
     - target: {fileID: 8572293444768453490, guid: 458ca60d350c087469094debd4376981,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8572293444768453490, guid: 458ca60d350c087469094debd4376981,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ba91fd3363ef8e34088f60a5ebdb210c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
