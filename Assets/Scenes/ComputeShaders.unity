@@ -1270,20 +1270,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949721040}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5828e9883e0c407baed9d7b276db7e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 7200000, guid: 3238b8cec5f642399d8f3dc95bfd6f3c, type: 3}
-  rotationSpeed: 1
-  boidSpeed: 1
+  rotationSpeed: 10
+  boidSpeed: 10
   neighbourDistance: 1
   boidSpeedVariation: 1
   boidMesh: {fileID: 4300000, guid: df3bd4a39eeabea46a6553b01c18eb06, type: 2}
-  boidMaterial: {fileID: 2100000, guid: eb2d9941d27bd9c4abe6db3942372850, type: 2}
+  boidMaterial: {fileID: 2100000, guid: ba91fd3363ef8e34088f60a5ebdb210c, type: 2}
   boidsCount: 50
-  spawnRadius: 5
+  spawnRadius: 10
   target: {fileID: 1909219469}
 --- !u!114 &1949721046
 MonoBehaviour:
@@ -1292,20 +1292,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949721040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ff9ef349cf6442dad24ada8e03d19fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boidMesh: {fileID: 4300000, guid: df3bd4a39eeabea46a6553b01c18eb06, type: 2}
   boidMaterial: {fileID: 2100000, guid: 70609034e606bcb4da14fda5dc05d142, type: 2}
-  boidsCount: 500
-  spawnRadius: 100
+  boidsCount: 150
+  spawnRadius: 20
   target: {fileID: 1909219469}
-  alignmentWeight: 1
-  cohesionWeight: 2
-  separationWeight: 5
-  neighbourDistance: 5
+  alignmentWeight: 2
+  cohesionWeight: 0.5
+  separationWeight: 2
+  neighbourDistance: 10
 --- !u!1 &1949892115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,6 +1650,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572293444768453490, guid: 458ca60d350c087469094debd4376981,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

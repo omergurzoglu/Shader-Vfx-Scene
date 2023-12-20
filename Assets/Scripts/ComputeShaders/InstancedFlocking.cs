@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InstancedFlocking : MonoBehaviour
 {
@@ -101,6 +99,9 @@ public class InstancedFlocking : MonoBehaviour
         shader.SetFloat("deltaTime", Time.deltaTime);
 
         shader.Dispatch(this.kernelHandle, groupSizeX, 1, 1);
+        boidsBuffer.GetData(boidsArray);
+        Debug.Log(boidsArray[5].position);
+       
 
         Graphics.DrawMeshInstancedIndirect(boidMesh, 0, boidMaterial, bounds, argsBuffer);
     }
@@ -115,6 +116,13 @@ public class InstancedFlocking : MonoBehaviour
         if (argsBuffer != null)
         {
             argsBuffer.Dispose();
+        }
+    }
+    void OnDrawGizmos()
+    {
+        if (boidsArray != null && boidsArray.Length > 5)
+        {
+            Gizmos.DrawWireSphere(boidsArray[5].position, 0.5f);
         }
     }
 }
