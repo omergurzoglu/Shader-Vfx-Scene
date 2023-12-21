@@ -304,7 +304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &126253436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,6 +1188,7 @@ GameObject:
   - component: {fileID: 1949721045}
   - component: {fileID: 1949721046}
   - component: {fileID: 1949721047}
+  - component: {fileID: 1949721048}
   m_Layer: 0
   m_Name: CS
   m_TagString: Untagged
@@ -1315,7 +1316,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949721040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40e97d25da64417ebf142fb0ed5456ad, type: 3}
   m_Name: 
@@ -1324,6 +1325,23 @@ MonoBehaviour:
     type: 3}
   instanceMaterial: {fileID: 2100000, guid: 4699e2801f83e74449929a095d5f8607, type: 2}
   instanceCount: 50
+--- !u!114 &1949721048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949721040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89946fc3e1864b1eb0cab36eb65ccbe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 7200000, guid: ebe4dd09ab31496a8cc96332f29a85b2, type: 3}
+  ballMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  ballMaterial: {fileID: 2100000, guid: b37af81d4ab16da41b2424851f04ebc7, type: 2}
+  ballsCount: 5
+  radius: 0.08
 --- !u!1 &1949892115
 GameObject:
   m_ObjectHideFlags: 0
