@@ -1,9 +1,11 @@
-﻿using Unity.Collections;
+﻿using Unity.Burst;
+using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 
 namespace Boids
 {
+    [BurstCompile]
     public struct BoidJob : IJobParallelFor
     {
         [ReadOnly]

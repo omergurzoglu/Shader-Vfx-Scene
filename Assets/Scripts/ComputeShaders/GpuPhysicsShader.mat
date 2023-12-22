@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SimplePhysicsMat
-  m_Shader: {fileID: 4800000, guid: 81d80c1f55ea4784a45cd953c55437d4, type: 3}
+  m_Name: GpuPhysicsShader
+  m_Shader: {fileID: 4800000, guid: 706eedb0d717477a9433aa5a8f8bf566, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -22,24 +22,9 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _BumpMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _Glossiness: 1
-    - _Metallic: 0
-    - _Radius: 0.1
+    m_Floats: []
     m_Colors:
-    - _Color: {r: 1, g: 0.6979643, b: 0, a: 1}
+    - _Color: {r: 0.5801887, g: 1, b: 0.84595025, a: 1}
   m_BuildTextureStacks: []

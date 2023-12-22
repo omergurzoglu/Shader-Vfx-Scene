@@ -993,8 +993,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078144417}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.61, z: -10}
+  m_LocalRotation: {x: 0.3410188, y: -0.37549806, z: 0.1551281, w: 0.847728}
+  m_LocalPosition: {x: 80.77176, y: 71.424706, z: -34.368324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1189,6 +1189,7 @@ GameObject:
   - component: {fileID: 1949721046}
   - component: {fileID: 1949721047}
   - component: {fileID: 1949721048}
+  - component: {fileID: 1949721049}
   m_Layer: 0
   m_Name: CS
   m_TagString: Untagged
@@ -1262,7 +1263,7 @@ MonoBehaviour:
   boidSpeedVariation: 1
   boidPrefab: {fileID: 3607249193506105295, guid: fec7220ba7e9855419fbc51a8cf8eccf,
     type: 3}
-  boidsCount: 50
+  boidsCount: 150
   spawnRadius: 10
   target: {fileID: 1909219469}
 --- !u!114 &1949721045
@@ -1282,8 +1283,7 @@ MonoBehaviour:
   boidSpeed: 15
   neighbourDistance: 2
   boidSpeedVariation: 0
-  boidMesh: {fileID: 3195908441318720455, guid: 271bc0c207275894f99efeb2f48854c4,
-    type: 3}
+  boidMesh: {fileID: 955962616524304631, guid: 6cd27d42df9c9ed498c89a42958dd672, type: 3}
   boidMaterial: {fileID: 2100000, guid: ba91fd3363ef8e34088f60a5ebdb210c, type: 2}
   boidsCount: 50
   spawnRadius: 20
@@ -1302,8 +1302,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boidMesh: {fileID: 4300000, guid: df3bd4a39eeabea46a6553b01c18eb06, type: 2}
   boidMaterial: {fileID: 2100000, guid: 70609034e606bcb4da14fda5dc05d142, type: 2}
-  boidsCount: 150
-  spawnRadius: 20
+  boidsCount: 500
+  spawnRadius: 5
   target: {fileID: 1909219469}
   alignmentWeight: 2
   cohesionWeight: 0.5
@@ -1332,7 +1332,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949721040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89946fc3e1864b1eb0cab36eb65ccbe3, type: 3}
   m_Name: 
@@ -1340,8 +1340,38 @@ MonoBehaviour:
   shader: {fileID: 7200000, guid: ebe4dd09ab31496a8cc96332f29a85b2, type: 3}
   ballMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   ballMaterial: {fileID: 2100000, guid: b37af81d4ab16da41b2424851f04ebc7, type: 2}
-  ballsCount: 5
-  radius: 0.08
+  ballsCount: 100
+  radius: 0.05
+--- !u!114 &1949721049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949721040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3425936e76364064b6b6f6cf4760cc8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 7200000, guid: 8219656f01cc443486aeed1343289015, type: 3}
+  cubeMaterial: {fileID: 2100000, guid: 9a073acd2ed2de04f9a1d343b76ad022, type: 2}
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  cubeMass: 1
+  scale: 1
+  particlesPerEdge: 1
+  springCoefficient: 1
+  dampingCoefficient: 1
+  tangentialCoefficient: 1
+  gravityCoefficient: 1
+  frictionCoefficient: 1
+  angularFrictionCoefficient: 1
+  angularForceScalar: 1
+  linearForceScalar: 1
+  rigidBodyCount: 10
+  stepsPerUpdate: 10
 --- !u!1 &1949892115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,7 +1542,7 @@ Transform:
   m_GameObject: {fileID: 2123036897}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38939884, y: -0.4739789, z: 0.009863053, w: 0.78969324}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.48, y: 4.62, z: -1.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1686,6 +1716,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923550317247656615, guid: 458ca60d350c087469094debd4376981,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8572293444768453490, guid: 458ca60d350c087469094debd4376981,
         type: 3}
